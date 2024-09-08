@@ -6,18 +6,20 @@
         xmlns:local="clr-namespace:lab2"
         xmlns:WindowsPresentation="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation" x:Class="lab2.MainWindow"
         mc:Ignorable="d"
-        Title="MainMap.lb2" Height="450" Width="1123">
+        Title="MainMap.lb2" Height="450" Width="1008">
     <Grid>
 
-        <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" Margin="98,78,0,77" MouseRightButtonDown="mrb_click" HorizontalAlignment="Left" Width="464"/>
-        <ComboBox x:Name="type" HorizontalAlignment="Left" Margin="686,37,0,0" VerticalAlignment="Top" Width="120">
+        <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" Margin="10,10,0,10" MouseRightButtonDown="mrb_click" HorizontalAlignment="Left" Width="823"/>
+        <ComboBox x:Name="type" HorizontalAlignment="Left" Margin="838,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="type_SelectionChanged">
             <ComboBoxItem Content="Person"/>
             <ComboBoxItem Content="Car"/>
             <ComboBoxItem Content="Place"/>
             <ComboBoxItem Content="Route"/>
             <ComboBoxItem Content="Area"/>
-            
+
         </ComboBox>
+        <Button x:Name="route" Content="Маршрут" HorizontalAlignment="Left" Margin="838,37,0,0" VerticalAlignment="Top" Height="125" Width="120" Click="route_Click"/>
+        <Button x:Name="Area" Content="Область" HorizontalAlignment="Left" Margin="838,167,0,0" VerticalAlignment="Top" Height="125" Width="120" Click="area_Click"/>
 
 
     </Grid>

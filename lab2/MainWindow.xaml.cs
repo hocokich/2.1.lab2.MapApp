@@ -26,7 +26,7 @@ namespace lab2
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<PointLatLng> point = new List <PointLatLng>();
+        List<PointLatLng> points = new List <PointLatLng>();
 
         public MainWindow()
         {
@@ -61,8 +61,7 @@ namespace lab2
 
         private void addMarker(string ToolTip, string picName)
         {
-
-            GMapMarker marker = new GMapMarker(point)
+            GMapMarker marker = new GMapMarker(points[0])
             {
                 Shape = new Image
                 {
@@ -74,11 +73,32 @@ namespace lab2
             };
 
             Map.Markers.Add(marker);
+            points.Clear();
+        }
+        private void addPath()
+        {
+            if (points.Count < 2)
+                return;
+            GMapMarker marker = new GMapRoute(points)
+            {
+                Shape = new Path()
+                {
+                    Stroke = Brushes.DarkBlue, // цвет обводки
+                    Fill = Brushes.DarkBlue, // цвет заливки
+                    StrokeThickness = 4 // толщина обводки
+                }
+            };
+
+            Map.Markers.Add(marker);
+        }
+        private void addArea()
+        {
+
         }
 
         private void mrb_click(object sender, MouseButtonEventArgs e)
         {
-            point.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
+            points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
 
             switch (type.SelectedIndex){
                 case 0:
@@ -91,14 +111,41 @@ namespace lab2
                     addMarker("Place", "potion_2.png");
                     break;
                 case 3:
-                    addMarker("Route", "");
+                    addPath();
                     break;
                 case 4:
-                    addMarker("Area", "");
+                    //addMarker("Area", "");
                     break;
                 default: MessageBox.Show("Неопределен.");
                     break;
             }
+        }
+
+        private void route_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void area_Click(object sender, RoutedEventArgs e)
+        {
+            if (points.Count < 3)
+                return;
+            GMapMarker marker = new GMapPolygon(points)
+            {
+                Shape = new Path
+                {
+                    Stroke = Brushes.Black, // стиль обводки
+                    Fill = Brushes.Violet, // стиль заливки
+                    Opacity = 0.2 // прозрачность
+                }
+            };
+            Map.Markers.Add(marker);
+            points.Clear();
+        }
+
+        private void type_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            points.Clear();
         }
     }
 }

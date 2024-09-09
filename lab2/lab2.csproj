@@ -62,6 +62,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CCar.cs" />
+    <Compile Include="CLocation.cs" />
+    <Compile Include="CMapObject.cs" />
+    <Compile Include="CPerson.cs" />
+    <Compile Include="CRoute.cs" />
     <Compile Include="WMSProvider.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -104,15 +109,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="pics\goblin_5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="pics\potion_2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="pics\car.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\goblin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

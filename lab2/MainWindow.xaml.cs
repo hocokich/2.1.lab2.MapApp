@@ -97,7 +97,10 @@ namespace lab2
                     StrokeThickness = 4 // толщина обводки
                 }
             };
+            if(lastPath != null)
+                Map.Markers.Remove(lastPath);
 
+            lastPath = marker;
             Map.Markers.Add(marker);
         }
 
@@ -108,15 +111,19 @@ namespace lab2
 
             switch (type.SelectedIndex){
                 case 0:
-                    objects.Add(new CPerson("Person", "goblin_5.png", locations));
+                    objects.Add(new CPerson("Person", "goblin.png", locations));
+                    Map.Markers.Add(objects[objects.Count - 1].getMarker());
                     break;
                 case 1:
                     objects.Add(new CCar("Car", "car.png", locations));
+                    Map.Markers.Add(objects[objects.Count - 1].getMarker());
                     break;
                 case 2:
                     objects.Add(new CLocation("Location", "location.png", locations));
+                    Map.Markers.Add(objects[objects.Count - 1].getMarker());
                     break;
                 case 3:
+                    points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
                     addPath();
                     break;
                 case 4:
@@ -161,6 +168,10 @@ namespace lab2
 
         private void addRoute_Click(object sender, RoutedEventArgs e)
         {
+            objects.Add(new CRoute("Place", points));
+            if (lastPath != null)
+                Map.Markers.Remove(lastPath);
+            Map.Markers.Add(objects[objects.Count - 1].getMarker());
 
         }
     }

@@ -27,6 +27,11 @@ namespace lab2
     public partial class MainWindow : Window
     {
         List<PointLatLng> points = new List <PointLatLng>();
+        GMapMarker lastPath = null;
+        GMapMarker lastArea = null;
+
+        List<CMapObject> objects = new List<CMapObject>();
+
 
         public MainWindow()
         {
@@ -59,7 +64,7 @@ namespace lab2
             
         }
 
-        private void addMarker(string ToolTip, string picName)
+        /*private void addMarker(string ToolTip, string picName)
         {
             GMapMarker marker = new GMapMarker(points[0])
             {
@@ -75,6 +80,10 @@ namespace lab2
             Map.Markers.Add(marker);
             points.Clear();
         }
+        private void addArea()
+        {
+
+        }*/
         private void addPath()
         {
             if (points.Count < 2)
@@ -91,24 +100,21 @@ namespace lab2
 
             Map.Markers.Add(marker);
         }
-        private void addArea()
-        {
-
-        }
 
         private void mrb_click(object sender, MouseButtonEventArgs e)
         {
-            points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
+            //points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
+            var locations = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
 
             switch (type.SelectedIndex){
                 case 0:
-                    addMarker("Person", "goblin_5.png");
+                    objects.Add(new CPerson("Person", "goblin_5.png", locations));
                     break;
                 case 1:
-                    addMarker("Car", "car.png");
+                    objects.Add(new CCar("Car", "car.png", locations));
                     break;
                 case 2:
-                    addMarker("Place", "potion_2.png");
+                    objects.Add(new CLocation("Location", "location.png", locations));
                     break;
                 case 3:
                     addPath();
@@ -119,11 +125,6 @@ namespace lab2
                 default: MessageBox.Show("Неопределен.");
                     break;
             }
-        }
-
-        private void route_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
 
         private void area_Click(object sender, RoutedEventArgs e)
@@ -145,7 +146,22 @@ namespace lab2
 
         private void type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            lastPath = null;
+            lastArea = null;
             points.Clear();
+        }
+
+        private void clear_Click(object sender, RoutedEventArgs e)
+        {
+            lastPath = null;
+            lastArea = null;
+            points.Clear();
+            Map.Markers.Clear();
+        }
+
+        private void addRoute_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

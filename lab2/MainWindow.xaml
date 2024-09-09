@@ -13,13 +13,13 @@
         <ComboBox x:Name="type" HorizontalAlignment="Left" Margin="838,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="type_SelectionChanged">
             <ComboBoxItem Content="Person"/>
             <ComboBoxItem Content="Car"/>
-            <ComboBoxItem Content="Place"/>
+            <ComboBoxItem Content="Location"/>
             <ComboBoxItem Content="Route"/>
             <ComboBoxItem Content="Area"/>
 
         </ComboBox>
-        <Button x:Name="route" Content="Маршрут" HorizontalAlignment="Left" Margin="838,37,0,0" VerticalAlignment="Top" Height="125" Width="120" Click="route_Click"/>
-        <Button x:Name="Area" Content="Область" HorizontalAlignment="Left" Margin="838,167,0,0" VerticalAlignment="Top" Height="125" Width="120" Click="area_Click"/>
+        <Button x:Name="clear" Content="Очистить" HorizontalAlignment="Left" Margin="838,37,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="clear_Click"/>
+        <Button x:Name="addRoute" Content="Создать маршрут" HorizontalAlignment="Left" Margin="838,66,0,0" VerticalAlignment="Top" Height="26" Width="120" Click="addRoute_Click"/>
 
 
     </Grid>

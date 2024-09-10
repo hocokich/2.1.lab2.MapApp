@@ -107,19 +107,20 @@ namespace lab2
         private void mrb_click(object sender, MouseButtonEventArgs e)
         {
             //points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
+
             var locations = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
 
             switch (type.SelectedIndex){
                 case 0:
-                    objects.Add(new CPerson("Person", "goblin.png", locations));
+                    objects.Add(new CPerson(mName.Text, "goblin.png", locations));
                     Map.Markers.Add(objects[objects.Count - 1].getMarker());
                     break;
                 case 1:
-                    objects.Add(new CCar("Car", "car.png", locations));
+                    objects.Add(new CCar(mName.Text, "car.png", locations));
                     Map.Markers.Add(objects[objects.Count - 1].getMarker());
                     break;
                 case 2:
-                    objects.Add(new CLocation("Location", "location.png", locations));
+                    objects.Add(new CLocation(mName.Text, "location.png", locations));
                     Map.Markers.Add(objects[objects.Count - 1].getMarker());
                     break;
                 case 3:
@@ -172,7 +173,6 @@ namespace lab2
             if (lastPath != null)
                 Map.Markers.Remove(lastPath);
             Map.Markers.Add(objects[objects.Count - 1].getMarker());
-
         }
     }
 }

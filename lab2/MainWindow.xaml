@@ -15,7 +15,7 @@
             <ComboBoxItem Content="Car"/>
             <ComboBoxItem Content="Location"/>
             <ComboBoxItem Content="Route"/>
-            <ComboBoxItem Content="Area"/>
+            <!--<ComboBoxItem Content="Area"/>-->
 
         </ComboBox>
         <Button x:Name="clear" Content="Очистить" HorizontalAlignment="Left" Margin="1342,38,0,0" VerticalAlignment="Top" Height="22" Width="120" Click="clear_Click"/>

@@ -28,7 +28,7 @@ namespace lab2
     {
         List<PointLatLng> points = new List <PointLatLng>();
         GMapMarker lastPath = null;
-        GMapMarker lastArea = null;
+        //GMapMarker lastArea = null;
 
         List<CMapObject> objects = new List<CMapObject>();
 
@@ -155,14 +155,14 @@ namespace lab2
         private void type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lastPath = null;
-            lastArea = null;
+            //lastArea = null;
             points.Clear();
         }
 
         private void clear_Click(object sender, RoutedEventArgs e)
         {
             lastPath = null;
-            lastArea = null;
+            //lastArea = null;
             points.Clear();
             Map.Markers.Clear();
         }

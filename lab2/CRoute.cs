@@ -15,6 +15,7 @@ namespace lab2
     internal class CRoute : CMapObject
     {
         List<PointLatLng> locations;
+
         GMapMarker marker;
 
         public CRoute(string title, List<PointLatLng> locations) : base(title)
@@ -32,7 +33,12 @@ namespace lab2
                     StrokeThickness = 4 // толщина обводки
                 }
             };
-        } 
+        }
+
+        public List<PointLatLng> getLocations()
+        {
+            return locations;
+        }
 
         public override PointLatLng getFocus()
         {

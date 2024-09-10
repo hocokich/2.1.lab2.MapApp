@@ -15,6 +15,13 @@ namespace lab2
         PointLatLng location;
         GMapMarker marker;
 
+        PointLatLng destination;
+
+        public void CarArrived(object sender, EventArgs e)
+        {
+            //TODO: Сесть в машину
+        }
+
         public CPerson(string title, string picName, PointLatLng location) : base(title)
         {
             this.location = location;

@@ -169,9 +169,10 @@ namespace lab2
 
         private void addRoute_Click(object sender, RoutedEventArgs e)
         {
-            objects.Add(new CRoute("Place", points));
+            objects.Add(new CRoute(mName.Text, points));
             if (lastPath != null)
                 Map.Markers.Remove(lastPath);
+
             Map.Markers.Add(objects[objects.Count - 1].getMarker());
         }
     }

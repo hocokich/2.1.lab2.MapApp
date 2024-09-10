@@ -23,7 +23,7 @@ namespace lab2
 
             if (locations.Count < 2)
                 return;
-            GMapMarker marker = new GMapRoute(locations)
+            marker = new GMapRoute(locations)
             {
                 Shape = new Path()
                 {

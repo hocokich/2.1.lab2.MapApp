@@ -1,30 +1,28 @@
-﻿using GMap.NET.WindowsPresentation;
-using GMap.NET;
+﻿using GMap.NET;
+using GMap.NET.WindowsPresentation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace lab2
 {
-    internal class CRoute : CMapObject
+    internal class CArea : CMapObject
     {
         List<PointLatLng> points;
 
         GMapMarker marker;
 
-        public CRoute(string title, List<PointLatLng> locations) : base(title)
-        {
-            this.points = locations;
 
-            if (locations.Count < 2)
+        public CArea(string title, List<PointLatLng> points) : base(title)
+        {
+            /*this.points = points;
+
+            if (points.Count < 2)
                 return;
-            marker = new GMapRoute(locations)
+            marker = new GMapRoute(points)
             {
                 Shape = new Path()
                 {
@@ -32,22 +30,17 @@ namespace lab2
                     Fill = Brushes.DarkBlue, // цвет заливки
                     StrokeThickness = 4 // толщина обводки
                 }
-            };
-        }
-
-        public List<PointLatLng> getLocations()
-        {
-            return points;
+            };*/
         }
 
         public override PointLatLng getFocus()
         {
-            return points[points.Count/2];
+            throw new NotImplementedException();
         }
 
         public override GMapMarker getMarker()
         {
-            return marker;
+            throw new NotImplementedException();
         }
     }
 }

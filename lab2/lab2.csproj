@@ -68,7 +68,6 @@
     <Compile Include="CMapObject.cs" />
     <Compile Include="CPerson.cs" />
     <Compile Include="CRoute.cs" />
-    <Compile Include="WMSProvider.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

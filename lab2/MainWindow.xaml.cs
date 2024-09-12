@@ -184,6 +184,7 @@ namespace lab2
             //Все расстояние
             List<double> allPoints = new List<double>();
 
+            string allPointsMsg = "Другие метки: " + "\n";
             for (var i = 0; i < objects.Count; i++)
             {
                 //Находит расстояние не от ближайшей точки, а от перекрестия карты 
@@ -194,15 +195,18 @@ namespace lab2
                 map.Add(objects[i], complement);
 
                 allPoints.Add(complement);
+
+                allPointsMsg += objects[i].getTitle() + ": " + (int)complement + "м.\n";
             }
             allPoints.Sort();
 
             //CMapObject closeMark = map[allPoints[0]];
 
-            MessageBox.Show("Ближайшая точка:" + allPoints[0]);
+            MessageBox.Show("Ближайшая точка: " + (int)allPoints[0] + "\n" + "\n" + allPointsMsg);
 
         }
 
+        //Функция чисто для теста
         public int[] TwoSum(int[] nums, int target)
         {
 
@@ -221,7 +225,7 @@ namespace lab2
             }
             throw new ArgumentException("No two sum solution"); // выброс исключения, если решение не найдено
         }
-
+        
         private void addRoute_Click(object sender, RoutedEventArgs e)
         {
             objects.Add(new CRoute(mName.Text, points));
@@ -230,6 +234,5 @@ namespace lab2
 
             Map.Markers.Add(objects[objects.Count - 1].getMarker());
         }
-        //Люблю маму
     }
 }

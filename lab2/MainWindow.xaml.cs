@@ -229,5 +229,6 @@ namespace lab2
 
             Map.Markers.Add(objects[objects.Count - 1].getMarker());
         }
+        //Люблю маму
     }
 }

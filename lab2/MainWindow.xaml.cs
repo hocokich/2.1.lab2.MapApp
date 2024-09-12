@@ -178,22 +178,15 @@ namespace lab2
 
             var location = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
 
-            //Расстояние до всех точек на карте
-            //Dictionary<double, CMapObject > map = new Dictionary<double, CMapObject>();
-            Dictionary<CMapObject, double> mapMarks = new Dictionary<CMapObject, double>();
-
-            //Все расстояние
+            //Список расстояния всех точек
             List<double> allPoints = new List<double>();
 
-            string allPointsMsg = "Другие метки: " + "\n";
+            string allPointsMsg = "Все метки: " + "\n";
             for (var i = 0; i < objects.Count; i++)
             {
                 //Находит расстояние не от ближайшей точки, а от перекрестия карты
                 //Вроде починил, добавил гетфокус чтобы он оттуда брал координаты метки
                 double complement = objects[i].getDistance(location, objects[i].getFocus());
-
-                //map.Add(complement, objects[i]);
-                mapMarks.Add(objects[i], complement);
 
                 allPoints.Add(complement);
 
@@ -203,19 +196,50 @@ namespace lab2
 
             //CMapObject closeMark = map[allPoints[0]];
 
-            MessageBox.Show("Ближайшая точка: " + (int)allPoints[0] + "\n" + "\n" + allPointsMsg);
+            MessageBox.Show("Ближайшая точка: " + (int)allPoints[0] + "м. \n" + "\n" + allPointsMsg);
 
         }
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
+            if(objects.Count < 1) return;
+
+            //var location = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
+
+            //Счетчик колличества одинаковых имен
+            var j = 0;
+            var firstMarkIndex = 0;
+
+            //Список одинаковых элементов
+            List<int> allPoints = new List<int>();
+
             for (var i = 0; i < objects.Count; i++)
             {
                 if(objects[i].getTitle() == mNameSearch.Text)
                 {
-                    Map.Position = objects[i].getFocus();
-                    break;
+                    firstMarkIndex = i;
+                    allPoints.Add(i);
+                    j++;
                 }
+            }
+            if (j > 1)
+            {
+                allPoints.Sort();
+                Map.Position = objects[firstMarkIndex].getFocus();
+                MessageBox.Show("Первая найденая метка.\n\nДругие найденые метки в списке справа.");
+
+                searchedMarks.Text = "Похожих точек: " + j + ".\n\nРасстояние от найденой до других:\n";
+                for(var i = 0; i < allPoints.Count-1; i++)
+                {
+                    searchedMarks.Text += i+1 + ". " + (int)objects[firstMarkIndex].getDistance(objects[firstMarkIndex].getFocus(), objects[allPoints[i]].getFocus()) + "м.\n";
+                }
+                return;
+            }
+            if (j == 1)//Если такая метка одна, то зумим её на карте
+            {
+                MessageBox.Show("Ваша метка.");
+                Map.Position = objects[firstMarkIndex].getFocus();
+                return;
             }
         }
 

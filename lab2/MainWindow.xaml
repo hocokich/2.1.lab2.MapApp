@@ -9,6 +9,7 @@
         Title="MainMap.lb2" Height="900" Width="1508">
     <Grid>
         <Rectangle HorizontalAlignment="Left" Height="85" Margin="1342,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="124"/>
+        <Rectangle HorizontalAlignment="Left" Height="194" Margin="1342,150,0,0" Stroke="Black" VerticalAlignment="Top" Width="124"/>
 
         <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" HorizontalAlignment="Left" Height="860" Margin="10,14,0,0" VerticalAlignment="Top" Width="1327" MouseRightButtonDown="mrb_click" MouseDoubleClick="search"/>
 
@@ -27,5 +28,7 @@
         <Label Content="Найти:" HorizontalAlignment="Left" Margin="1381,150,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="mNameSearch" HorizontalAlignment="Left" Height="21" Margin="1346,176,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="116"/>
         <Button x:Name="searchBtn" Content="Поиск" HorizontalAlignment="Left" Margin="1346,202,0,0" VerticalAlignment="Top" Height="22" Width="116" Click="searchBtn_Click"/>
+        <TextBox x:Name="searchedMarks" HorizontalAlignment="Left" Height="84" Margin="1347,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114"/>
+        <Label Content="Найденные метки:" HorizontalAlignment="Left" Margin="1346,229,0,0" VerticalAlignment="Top" Width="116"/>
     </Grid>
 </Window>

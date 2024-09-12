@@ -172,6 +172,9 @@ namespace lab2
 
         private void search(object sender, MouseButtonEventArgs e)
         {
+            if (objects.Count < 1)
+                return;
+
             var location = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
 
             //Расстояние до всех точек на карте
@@ -195,7 +198,7 @@ namespace lab2
 
             //CMapObject closeMark = map[allPoints[0]];
 
-            //MessageBox.Show("Ближайшая точка:" + closeMark.getDistance(location));
+            MessageBox.Show("Ближайшая точка:" + allPoints[0]);
 
         }
 
@@ -218,13 +221,13 @@ namespace lab2
             throw new ArgumentException("No two sum solution"); // выброс исключения, если решение не найдено
         }
 
-        /*private void addRoute_Click(object sender, RoutedEventArgs e)
+        private void addRoute_Click(object sender, RoutedEventArgs e)
         {
             objects.Add(new CRoute(mName.Text, points));
             if (lastPath != null)
                 Map.Markers.Remove(lastPath);
 
             Map.Markers.Add(objects[objects.Count - 1].getMarker());
-        }*/
+        }
     }
 }

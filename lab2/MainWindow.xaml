@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainMap.lb2" Height="900" Width="1508">
     <Grid>
-        <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" HorizontalAlignment="Left" Height="860" Margin="10,14,0,0" VerticalAlignment="Top" Width="1327" MouseRightButtonDown="mrb_click"/>
+        <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" HorizontalAlignment="Left" Height="860" Margin="10,14,0,0" VerticalAlignment="Top" Width="1327" MouseRightButtonDown="mrb_click" MouseDoubleClick="search"/>
 
         <ComboBox x:Name="type" HorizontalAlignment="Left" Margin="1342,11,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="type_SelectionChanged" Height="22">
             <ComboBoxItem Content="Person"/>

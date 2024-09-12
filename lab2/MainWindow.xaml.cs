@@ -17,6 +17,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsPresentation;
 using System.Device.Location;
+using System.Xml.Linq;
 
 
 namespace lab2
@@ -26,9 +27,9 @@ namespace lab2
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<PointLatLng> points = new List <PointLatLng>();
+        List<PointLatLng> points = new List<PointLatLng>();
         GMapMarker lastPath = null;
-        //GMapMarker lastArea = null;
+        GMapMarker lastArea = null;
 
         List<CMapObject> objects = new List<CMapObject>();
 
@@ -61,7 +62,7 @@ namespace lab2
             Map.CanDragMap = true;
             Map.DragButton = MouseButton.Left;
 
-            
+
         }
 
         /*private void addMarker(string ToolTip, string picName)
@@ -79,63 +80,9 @@ namespace lab2
 
             Map.Markers.Add(marker);
             points.Clear();
-        }
-        private void addArea()
-        {
-
         }*/
-        private void addPath()
-        {
-            if (points.Count < 2)
-                return;
-            GMapMarker marker = new GMapRoute(points)
-            {
-                Shape = new Path()
-                {
-                    Stroke = Brushes.DarkBlue, // цвет обводки
-                    Fill = Brushes.DarkBlue, // цвет заливки
-                    StrokeThickness = 4 // толщина обводки
-                }
-            };
-            if(lastPath != null)
-                Map.Markers.Remove(lastPath);
 
-            lastPath = marker;
-            Map.Markers.Add(marker);
-        }
-
-        private void mrb_click(object sender, MouseButtonEventArgs e)
-        {
-            //points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
-
-            var locations = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
-
-            switch (type.SelectedIndex){
-                case 0:
-                    objects.Add(new CPerson(mName.Text, "goblin.png", locations));
-                    Map.Markers.Add(objects[objects.Count - 1].getMarker());
-                    break;
-                case 1:
-                    objects.Add(new CCar(mName.Text, "car.png", locations));
-                    Map.Markers.Add(objects[objects.Count - 1].getMarker());
-                    break;
-                case 2:
-                    objects.Add(new CLocation(mName.Text, "location.png", locations));
-                    Map.Markers.Add(objects[objects.Count - 1].getMarker());
-                    break;
-                case 3:
-                    points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
-                    addPath();
-                    break;
-                case 4:
-                    //addMarker("Area", "");
-                    break;
-                default: MessageBox.Show("Неопределен.");
-                    break;
-            }
-        }
-
-        private void area_Click(object sender, RoutedEventArgs e)
+        private void addArea()
         {
             if (points.Count < 3)
                 return;
@@ -148,32 +95,136 @@ namespace lab2
                     Opacity = 0.2 // прозрачность
                 }
             };
+
+            if (lastArea != null)
+                Map.Markers.Remove(lastArea);
+
             Map.Markers.Add(marker);
-            points.Clear();
+            //points.Clear();
+        }
+        void addPath()
+        {
+            if (points.Count < 2)
+                return;
+            GMapMarker marker = new GMapRoute(points)
+            {
+                Shape = new Path()
+                {
+                    Stroke = Brushes.DarkBlue, // цвет обводки
+                    Fill = Brushes.DarkBlue, // цвет заливки
+                    StrokeThickness = 4 // толщина обводки
+                }
+            };
+            if (lastPath != null)
+                Map.Markers.Remove(lastPath);
+
+            lastPath = marker;
+            Map.Markers.Add(marker);
+        }
+        private void mrb_click(object sender, MouseButtonEventArgs e)
+        {
+            //points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
+
+            var location = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
+
+            switch (type.SelectedIndex)
+            {
+                case 0:
+                    objects.Add(new CPerson(mName.Text, "goblin.png", location));
+                    Map.Markers.Add(objects[objects.Count - 1].getMarker());
+                    break;
+                case 1:
+                    objects.Add(new CCar(mName.Text, "car.png", location));
+                    Map.Markers.Add(objects[objects.Count - 1].getMarker());
+                    break;
+                case 2:
+                    objects.Add(new CLocation(mName.Text, "location.png", location));
+                    Map.Markers.Add(objects[objects.Count - 1].getMarker());
+                    break;
+                case 3:
+                    points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
+                    addPath();
+                    break;
+                case 4:
+                    points.Add(Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y));
+                    addArea();
+                    break;
+                default:
+                    MessageBox.Show("Неопределен.");
+                    break;
+            }
         }
 
         private void type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lastPath = null;
-            //lastArea = null;
+            lastArea = null;
             points.Clear();
         }
 
         private void clear_Click(object sender, RoutedEventArgs e)
         {
             lastPath = null;
-            //lastArea = null;
+            lastArea = null;
             points.Clear();
             Map.Markers.Clear();
         }
 
-        private void addRoute_Click(object sender, RoutedEventArgs e)
+        private void search(object sender, MouseButtonEventArgs e)
+        {
+            var location = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
+
+            //Расстояние до всех точек на карте
+            //Dictionary<double, CMapObject > map = new Dictionary<double, CMapObject>();
+            Dictionary<CMapObject, double> map = new Dictionary<CMapObject, double>();
+
+            //Все расстояние
+            List<double> allPoints = new List<double>();
+
+            for (var i = 0; i < objects.Count; i++)
+            {
+                //Находит расстояние не от ближайшей точки, а от перекрестия карты 
+                double complement = objects[i].getDistance(location);
+
+                //map.Add(complement, objects[i]);
+                map.Add(objects[i], complement);
+
+                allPoints.Add(complement);
+            }
+            allPoints.Sort();
+
+            //CMapObject closeMark = map[allPoints[0]];
+
+            //MessageBox.Show("Ближайшая точка:" + closeMark.getDistance(location));
+
+        }
+
+        public int[] TwoSum(int[] nums, int target)
+        {
+
+            Dictionary<int, int> map = new Dictionary<int, int>(); // создание словаря
+
+            for (int i = 0; i < nums.Length; i++)
+            { // цикл по массиву
+
+                int complement = target - nums[i]; // вычисление разности между целевым значением и текущим элементом массива
+
+                if (map.ContainsKey(complement))
+                { // проверка наличия элемента-дополнения в словаре
+                    return new int[] { map[complement], i }; // возвращение пары индексов, если элемент-дополнение найден
+                }
+                map[nums[i]] = i; // добавление текущего элемента в словарь
+            }
+            throw new ArgumentException("No two sum solution"); // выброс исключения, если решение не найдено
+        }
+
+        /*private void addRoute_Click(object sender, RoutedEventArgs e)
         {
             objects.Add(new CRoute(mName.Text, points));
             if (lastPath != null)
                 Map.Markers.Remove(lastPath);
 
             Map.Markers.Add(objects[objects.Count - 1].getMarker());
-        }
+        }*/
     }
 }

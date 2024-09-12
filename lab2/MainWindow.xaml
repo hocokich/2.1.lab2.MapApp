@@ -8,7 +8,6 @@
         mc:Ignorable="d"
         Title="MainMap.lb2" Height="900" Width="1508">
     <Grid>
-        <!--<WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" Margin="10,10,0,10" MouseRightButtonDown="mrb_click" HorizontalAlignment="Left" Width="1327"/>-->
         <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" HorizontalAlignment="Left" Height="860" Margin="10,14,0,0" VerticalAlignment="Top" Width="1327" MouseRightButtonDown="mrb_click"/>
 
         <ComboBox x:Name="type" HorizontalAlignment="Left" Margin="1342,11,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="type_SelectionChanged" Height="22">
@@ -17,15 +16,10 @@
             <ComboBoxItem Content="Location"/>
             <ComboBoxItem Content="Route"/>
             <ComboBoxItem Content="Area"/>
-
         </ComboBox>
+        
         <Button x:Name="clear" Content="Очистить" HorizontalAlignment="Left" Margin="1342,38,0,0" VerticalAlignment="Top" Height="22" Width="120" Click="clear_Click"/>
-        <Button x:Name="addRoute" Content="Создать маршрут" HorizontalAlignment="Left" Margin="1342,65,0,0" VerticalAlignment="Top" Height="22" Width="120" Click="addRoute_Click"/>
 
-        <TextBox x:Name="mName" HorizontalAlignment="Left" Height="22" Margin="1342,92,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
-
-
-
-
+        <TextBox x:Name="mName" HorizontalAlignment="Left" Height="22" Margin="1342,65,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

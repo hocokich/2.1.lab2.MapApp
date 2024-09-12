@@ -9,22 +9,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Device.Location;
+using System.Windows.Input;
 
 namespace lab2
 {
     internal class CRoute : CMapObject
     {
         List<PointLatLng> points;
-
         GMapMarker marker;
 
-        public CRoute(string title, List<PointLatLng> locations) : base(title)
+        public CRoute(string title, List<PointLatLng> points) : base(title)
         {
-            this.points = locations;
+            this.points = points;
 
-            if (locations.Count < 2)
+            if (points.Count < 2)
                 return;
-            marker = new GMapRoute(locations)
+            marker = new GMapRoute(points)
             {
                 Shape = new Path()
                 {
@@ -35,19 +36,33 @@ namespace lab2
             };
         }
 
-        public List<PointLatLng> getLocations()
+        public new double getDistance(PointLatLng point)
         {
-            return points;
+            // точки в формате GMap.NET
+            PointLatLng p1 = new PointLatLng(55.015104, 82.948034);
+            PointLatLng p2 = new PointLatLng(55.018812, 82.940049);
+            // точки в формате System.Device.Location
+            GeoCoordinate c1 = new GeoCoordinate(p1.Lat, p2.Lng);
+            GeoCoordinate c2 = new GeoCoordinate(p2.Lat, p2.Lng);
+            // вычисление расстояния между точками в метрах
+            double distance = c1.GetDistanceTo(c2);
+
+            return distance;
         }
 
         public override PointLatLng getFocus()
         {
-            return points[points.Count/2];
+            return points[points.Count / 2];
         }
 
         public override GMapMarker getMarker()
         {
             return marker;
+        }
+
+        public void createRoute(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

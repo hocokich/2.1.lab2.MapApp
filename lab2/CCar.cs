@@ -3,6 +3,7 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsPresentation;
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,18 +16,15 @@ namespace lab2
 {
     public class CCar : CMapObject
     {
-        PointLatLng location;
+        private PointLatLng point;
         GMapMarker marker;
 
         CRoute route;
         CPerson person;
-        
-        // событие прибытия
-        public event EventHandler Arrived;
 
         public CCar(string title, string picName, PointLatLng location) : base(title)
         {
-            this.location = location;
+            this.point = location;
 
             marker = new GMapMarker(location)
             {
@@ -39,52 +37,28 @@ namespace lab2
                 }
             };
         }
+        public new double getDistance(PointLatLng point)
+        {
+            // точки в формате GMap.NET
+            PointLatLng p1 = this.point;
+            PointLatLng p2 = point;
+            // точки в формате System.Device.Location
+            GeoCoordinate c1 = new GeoCoordinate(p1.Lat, p2.Lng);
+            GeoCoordinate c2 = new GeoCoordinate(p2.Lat, p2.Lng);
+            // вычисление расстояния между точками в метрах
+            double distance = c1.GetDistanceTo(c2);
+
+            return distance;
+        }
 
         public override PointLatLng getFocus()
         {
-            return location;
+            return point;
         }
 
         public override GMapMarker getMarker()
         {
             return marker;
-        }
-
-        public void pessengerSeated(object sender, EventArgs e)
-        {
-
-        }
-
-        public void moveByRoute()
-        {
-            foreach (var point  in route.getLocations())
-            {
-                Application.Current.Dispatcher.Invoke(delegate
-                {
-                    marker.Position = point;
-                });
-                Thread.Sleep(500);
-            }
-            Arrived?.Invoke(this, null);
-        }
-
-        public void moveTo(PointLatLng endLocation )
-        {
-            //провайдер новигации
-            RoutingProvider routingProvider = GMapProviders.GoogleMap;
-            //определение маршрута
-            MapRoute route = routingProvider.GetRoute(
-                location,//начальная точка 
-                endLocation,//конечная 
-                false, //поиск по шоссе 
-                false, //режим пещехода
-                (int)15);
-            //получение точек маршрута
-            List<PointLatLng> routePoints = route.Points;
-            this.route = new CRoute("r", routePoints);
-
-            Thread newThread = new Thread(new ThreadStart(moveByRoute));
-            newThread.Start();
         }
     }
 }

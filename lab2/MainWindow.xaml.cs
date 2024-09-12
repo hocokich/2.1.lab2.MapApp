@@ -187,7 +187,8 @@ namespace lab2
             for (var i = 0; i < objects.Count; i++)
             {
                 //Находит расстояние не от ближайшей точки, а от перекрестия карты 
-                double complement = objects[i].getDistance(location);
+                //Вроде починил, добавил гетфокус чтобы он оттуда брал координаты метки
+                double complement = objects[i].getDistance(location, objects[i].getFocus());
 
                 //map.Add(complement, objects[i]);
                 map.Add(objects[i], complement);

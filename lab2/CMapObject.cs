@@ -42,11 +42,11 @@ namespace lab2
             return CreationDate;
         }
 
-        public double getDistance(PointLatLng point1)
+        public double getDistance(PointLatLng startPoint, PointLatLng endPoint)
         {
             // точки в формате GMap.NET
-            PointLatLng p1 = point;
-            PointLatLng p2 = point1;
+            PointLatLng p1 = startPoint;
+            PointLatLng p2 = endPoint;
             // точки в формате System.Device.Location
             GeoCoordinate c1 = new GeoCoordinate(p1.Lat, p2.Lng);
             GeoCoordinate c2 = new GeoCoordinate(p2.Lat, p2.Lng);

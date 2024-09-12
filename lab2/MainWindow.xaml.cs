@@ -33,7 +33,6 @@ namespace lab2
 
         List<CMapObject> objects = new List<CMapObject>();
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -168,6 +167,8 @@ namespace lab2
             lastArea = null;
             points.Clear();
             Map.Markers.Clear();
+
+            objects.Clear();
         }
 
         private void search(object sender, MouseButtonEventArgs e)
@@ -179,7 +180,7 @@ namespace lab2
 
             //Расстояние до всех точек на карте
             //Dictionary<double, CMapObject > map = new Dictionary<double, CMapObject>();
-            Dictionary<CMapObject, double> map = new Dictionary<CMapObject, double>();
+            Dictionary<CMapObject, double> mapMarks = new Dictionary<CMapObject, double>();
 
             //Все расстояние
             List<double> allPoints = new List<double>();
@@ -187,12 +188,12 @@ namespace lab2
             string allPointsMsg = "Другие метки: " + "\n";
             for (var i = 0; i < objects.Count; i++)
             {
-                //Находит расстояние не от ближайшей точки, а от перекрестия карты 
+                //Находит расстояние не от ближайшей точки, а от перекрестия карты
                 //Вроде починил, добавил гетфокус чтобы он оттуда брал координаты метки
                 double complement = objects[i].getDistance(location, objects[i].getFocus());
 
                 //map.Add(complement, objects[i]);
-                map.Add(objects[i], complement);
+                mapMarks.Add(objects[i], complement);
 
                 allPoints.Add(complement);
 
@@ -204,6 +205,18 @@ namespace lab2
 
             MessageBox.Show("Ближайшая точка: " + (int)allPoints[0] + "\n" + "\n" + allPointsMsg);
 
+        }
+
+        private void searchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            for (var i = 0; i < objects.Count; i++)
+            {
+                if(objects[i].getTitle() == mNameSearch.Text)
+                {
+                    Map.Position = objects[i].getFocus();
+                    break;
+                }
+            }
         }
 
         //Функция чисто для теста

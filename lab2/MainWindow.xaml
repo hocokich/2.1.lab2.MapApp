@@ -8,18 +8,24 @@
         mc:Ignorable="d"
         Title="MainMap.lb2" Height="900" Width="1508">
     <Grid>
+        <Rectangle HorizontalAlignment="Left" Height="85" Margin="1342,18,0,0" Stroke="Black" VerticalAlignment="Top" Width="124"/>
+
         <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" HorizontalAlignment="Left" Height="860" Margin="10,14,0,0" VerticalAlignment="Top" Width="1327" MouseRightButtonDown="mrb_click" MouseDoubleClick="search"/>
 
-        <ComboBox x:Name="type" HorizontalAlignment="Left" Margin="1342,11,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="type_SelectionChanged" Height="22">
+        <ComboBox x:Name="type" HorizontalAlignment="Left" Margin="1346,76,0,0" VerticalAlignment="Top" Width="116" SelectionChanged="type_SelectionChanged" Height="22">
             <ComboBoxItem Content="Person"/>
             <ComboBoxItem Content="Car"/>
             <ComboBoxItem Content="Location"/>
             <ComboBoxItem Content="Route"/>
             <ComboBoxItem Content="Area"/>
         </ComboBox>
-        
-        <Button x:Name="clear" Content="Очистить" HorizontalAlignment="Left" Margin="1342,38,0,0" VerticalAlignment="Top" Height="22" Width="120" Click="clear_Click"/>
 
-        <TextBox x:Name="mName" HorizontalAlignment="Left" Height="22" Margin="1342,65,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="clear" Content="Очистить поле" HorizontalAlignment="Left" Margin="1346,108,0,0" VerticalAlignment="Top" Height="22" Width="116" Click="clear_Click"/>
+
+        <TextBox x:Name="mName" HorizontalAlignment="Left" Height="21" Margin="1346,49,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="116"/>
+        <Label Content="Создание метки:" HorizontalAlignment="Left" Margin="1353,18,0,0" VerticalAlignment="Top"/>
+        <Label Content="Найти:" HorizontalAlignment="Left" Margin="1381,150,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="mNameSearch" HorizontalAlignment="Left" Height="21" Margin="1346,176,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="116"/>
+        <Button x:Name="searchBtn" Content="Поиск" HorizontalAlignment="Left" Margin="1346,202,0,0" VerticalAlignment="Top" Height="22" Width="116" Click="searchBtn_Click"/>
     </Grid>
 </Window>

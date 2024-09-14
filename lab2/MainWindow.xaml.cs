@@ -167,8 +167,10 @@ namespace lab2
             lastArea = null;
             points.Clear();
             Map.Markers.Clear();
+            searchedMarks.Clear();
 
             objects.Clear();
+
         }
 
         private void search(object sender, MouseButtonEventArgs e)
@@ -197,6 +199,8 @@ namespace lab2
             //CMapObject closeMark = map[allPoints[0]];
 
             MessageBox.Show("Ближайшая точка: " + (int)allPoints[0] + "м. \n" + "\n" + allPointsMsg);
+
+            searchedMarks.Text = "Ближайшая точка: " + (int)allPoints[0] + "м. \n" + "\n" + allPointsMsg;
 
         }
 
